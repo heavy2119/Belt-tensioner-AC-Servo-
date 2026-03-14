@@ -11,6 +11,7 @@
 | Reducer | ATG PGX42-20 |
 | Driver | MADDT1205 |
 | Motor | MSMD012S1A |
+| SMPS | 24V 3A |
 
 ---
 
