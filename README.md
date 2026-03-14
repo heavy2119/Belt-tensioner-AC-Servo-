@@ -85,6 +85,30 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 ---
 
+# Assembly Notes
+
+<p align="left">
+<img src="image/size.jpg" width="900">
+</p>
+
+🇰🇷 한글 정리
+조립 주의사항
+감속기 P.C.D : 46 mm
+모터 P.C.D : 45 mm
+두 부품의 P.C.D 차이가 1 mm 있어 볼트 구멍이 정확히 맞지 않습니다.
+따라서 모터쪽 M4 볼트가 들어갈 수 있도록 드릴로 구멍을 확장해야 합니다.
+저는 약 Ø6.5 mm 정도로 구멍을 확장하여 사용했습니다.
+
+🇺🇸 English Translation
+Assembly Notes
+Gearbox P.C.D: 46 mm
+Motor P.C.D: 45 mm
+Because there is a 1 mm difference in the P.C.D, the bolt holes do not align perfectly.
+Therefore, the holes need to be enlarged with a drill so that the M4 bolts on the motor side can fit.
+In my case, I enlarged the holes to approximately Ø6.5 mm.
+
+---
+
 # Credits
 
 Original project inspiration:
