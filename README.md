@@ -21,7 +21,6 @@
 | PULS | 9 | 10 | 4 |
 | SIGN | 7 | 8 | 6 |
 | Hall S/S | 2 | 3 | |
-| SON | | | |
 | GND | GND | GND | 41 |
 
 ---
