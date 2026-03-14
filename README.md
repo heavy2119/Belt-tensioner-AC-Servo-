@@ -22,6 +22,10 @@
 
 ## 2. Arduino Pin
 
+<p align="center">
+  <img src="image/Arduino Wirling.jpg" width="900">
+  </p>
+
 | Function | MOTOR1 | MOTOR2 | Servo I/O Pin |
 |---------|-------|-------|---------------|
 | PULS | 9 | 10 | 4 |
@@ -31,6 +35,10 @@
 
 ---
 
+<p align="center">
+  <img src="image/IO Wirling.jpg" width="900">
+  </p>
+  
 ## 3. Servo I/O Pin Map
 
 | Pin | Signal | Connection |
