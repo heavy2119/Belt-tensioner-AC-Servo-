@@ -21,6 +21,12 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 ---
 
+<p align="left">
+<img src="image/전체사진.jpg" width="900" >
+</p>
+
+---
+
 # Hardware
 
 ## Main Components
