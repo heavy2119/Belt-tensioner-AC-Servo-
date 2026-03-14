@@ -85,6 +85,33 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 ---
 
+# Part List
+
+| Name | Site | 
+| --- | ------ |
+| Arduino Uno  |  
+| A3144 Hall Sensor   |  
+| Magnet |   
+
+
+
+---
+
+# 3D Print
+
+| Name | 
+| --- |  ------ |
+| <p align="left"><img src="image/감속기마운트(좌).stl" width="900"></p>  |  
+|    |  
+|    |   
+|    |  
+|    |   
+|    |   
+|    |  
+
+
+---
+
 # Assembly Notes
 
 <p align="left">
