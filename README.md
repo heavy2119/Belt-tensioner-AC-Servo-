@@ -6,8 +6,8 @@
 ## 1. Parts
 
 <p align="center">
-  <img src="image/MinasA4.jpg" width="400">
-  <img src="image/pgx42.png" width="483">
+  <img src="image/MinasA4.jpg" width="300">
+  <img src="image/pgx42.png" width="383">
 </p>
 
 | Item | Model |
