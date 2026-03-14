@@ -5,8 +5,8 @@
 
 ## 1. Parts
 
-![Minas A4 ](images/MinasA4.jpg)
-![Reducer](images/pgx42.png)
+![MinasA4](image/Minas A4.jpg)
+![Reducer](image/pgx42.png)
 
 | Item | Model |
 |-----|------|
