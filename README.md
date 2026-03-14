@@ -5,6 +5,9 @@
 
 ## 1. Parts
 
+![Minas A4 ](images/MinasA4.jpg)
+![Reducer](images/pgx42.png)
+
 | Item | Model |
 |-----|------|
 | AC Servo | Minas A4 100W |
