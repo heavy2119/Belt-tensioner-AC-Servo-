@@ -5,8 +5,10 @@
 
 ## 1. Parts
 
-![MinasA4](image/Minas A4.jpg)
-![Reducer](image/pgx42.png)
+<p align="center">
+  <img src="image/MinasA4.jpg" width="400">
+  <img src="image/pgx42.png" width="483">
+</p>
 
 | Item | Model |
 |-----|------|
@@ -14,7 +16,7 @@
 | Reducer | ATG PGX42-20 |
 | Driver | MADDT1205 |
 | Motor | MSMD012S1A |
-| SMPS | 24V 3A |
+
 
 ---
 
@@ -40,6 +42,18 @@
 | 7 | COM+ | P24 |
 | 29 | SRV-ON | 0V |
 | 41 | COM- | 0V |
+
+## 4. Drive Parameter 
+
+| Pr.No | Title | Value |
+|----|-------|-----------|
+| 02 | Setup of control mode| 0 |
+| 04 | Invalidation of over-travel inhibit input | 1 |
+| 40 | Selection of command pulse input | 0 |
+| 42 | Mode setup of command pulse input | 3 |
+| 43 |Inhibition setup of command pulse input  | 1 |
+| 4E | Counter clear mode | 2 |
+| 4B | Denominator of electronic gear | 150 |
 
 
 
