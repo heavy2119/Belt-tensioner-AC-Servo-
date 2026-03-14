@@ -35,11 +35,13 @@
 
 ---
 
+
+  
+## 3. Servo I/O Pin Map
+
 <p align="center">
   <img src="image/IO Wirling.jpg" width="900">
   </p>
-  
-## 3. Servo I/O Pin Map
 
 | Pin | Signal | Connection |
 |----|-------|-----------|
