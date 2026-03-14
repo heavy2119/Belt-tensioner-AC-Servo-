@@ -4,6 +4,8 @@
 
 
 ## 1. Parts
+AC Servo  Minas A4 100W
+
 
 <p align="center">
   <img src="image/MinasA4.jpg" width="300">
@@ -12,7 +14,6 @@
 
 | Item | Model |
 |-----|------|
-| AC Servo | Minas A4 100W |
 | Reducer | ATG PGX42-20 |
 | Driver | MADDT1205 |
 | Motor | MSMD012S1A |
