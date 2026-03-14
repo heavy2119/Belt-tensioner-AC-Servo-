@@ -31,9 +31,9 @@
 | Pin | Signal | Connection |
 |----|-------|-----------|
 | 3 | PULS1 | P24 |
-| 4 | PULS2 | 0V (Arduino) |
+| 4 | PULS2 | 0V (<------Arduino) |
 | 5 | SIGN1 | P24 |
-| 6 | SIGN2 | 0V (Arduino) |
+| 6 | SIGN2 | 0V (<------Arduino) |
 | 7 | COM+ | P24 |
 | 29 | SRV-ON | 0V |
 | 41 | COM- | 0V |
