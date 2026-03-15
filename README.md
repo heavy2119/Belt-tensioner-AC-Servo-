@@ -111,6 +111,20 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | <p align="left"><img src="image/감속기마운트(우).jpg" width="300"></p>   |  1EA
 | <p align="left"><img src="image/레버(좌).jpg" width="300"></p>   |   1EA
 | <p align="left"><img src="image/레버(우).jpg" width="300"></p>   |  1EA
+
+
+# Arduino Source Check List
+
+| Name | Value | 
+| --- | ------ |
+| totalWorkingRange | 5000 → 1500 |
+| stepper1_directionPin | 8 → 7 |
+| stepper1_enablePin | 2 → 11 |
+| stepper1_hallSensorPin | A1 → 2 |
+| stepper2_directionPin | 7 → 8 |
+| stepper2_enablePin | 4 → 13 |
+| stepper2_hallSensorPin | A2 → 3 |
+
   
 
 
