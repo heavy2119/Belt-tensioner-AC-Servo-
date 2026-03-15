@@ -119,14 +119,23 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | --- | ------ |
 | totalWorkingRange | 1500 |
 | stepper1_directionPin |  7 |
-| stepper1_enablePin   11 |
+| stepper1_enablePin  | 11 |
 | stepper1_hallSensorPin |  2 |
 | stepper2_directionPin | 8 |
 | stepper2_enablePin | 13 |
 | stepper2_hallSensorPin | 3 |
 
-  
 
+## 🇰🇷 아두이노 테스트 주의사항
+초기 실행시 const bool sensorTestMode = false; 값을 True로 변경하여
+자석을 감지시켜 센서가 정상적으로 동작하는지 확인한다.
+
+---
+
+## 🇺🇸 Arduino Test Notice
+
+During the initial run, change the value of const bool sensorTestMode = false; to true, 
+then trigger the magnet to verify that the sensor is operating correctly.
 
 ---
 
