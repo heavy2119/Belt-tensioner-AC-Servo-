@@ -117,13 +117,13 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 | Name | Value | 
 | --- | ------ |
-| totalWorkingRange | 5000 → 1500 |
-| stepper1_directionPin | 8 → 7 |
-| stepper1_enablePin | 2 → 11 |
-| stepper1_hallSensorPin | A1 → 2 |
-| stepper2_directionPin | 7 → 8 |
-| stepper2_enablePin | 4 → 13 |
-| stepper2_hallSensorPin | A2 → 3 |
+| totalWorkingRange | 1500 |
+| stepper1_directionPin |  7 |
+| stepper1_enablePin   11 |
+| stepper1_hallSensorPin |  2 |
+| stepper2_directionPin | 8 |
+| stepper2_enablePin | 13 |
+| stepper2_hallSensorPin | 3 |
 
   
 
