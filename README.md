@@ -105,15 +105,13 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 # 3D Print
 
-| Name | 
+| Name |  EA  |
 | --- |  ------ |
-| <p align="left"><img src="image/감속기마운트(좌).jpg" width="300"></p>  |  
-| <p align="left"><img src="image/감속기마운트(우).jpg" width="300"></p>   |  
-| <p align="left"><img src="image/레버(좌).jpg" width="300"></p>   |   
-| <p align="left"><img src="image/레버(우).jpg" width="300"></p>   |  
-|    |   
-|    |   
-|    |  
+| <p align="left"><img src="image/감속기마운트(좌).jpg" width="300"></p>  |  1EA
+| <p align="left"><img src="image/감속기마운트(우).jpg" width="300"></p>   |  1EA
+| <p align="left"><img src="image/레버(좌).jpg" width="300"></p>   |   1EA
+| <p align="left"><img src="image/레버(우).jpg" width="300"></p>   |  1EA
+  
 
 
 ---
