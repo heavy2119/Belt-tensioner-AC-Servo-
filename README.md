@@ -93,11 +93,11 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 # Part List
 
-| Name | Site | 
+| Name | Note | 
 | --- | ------ |
 | Arduino Uno  |  
 | A3144 Hall Sensor   |  
-| Magnet |   
+| Magnet |   6X3 네오디움 자석
 
 
 
