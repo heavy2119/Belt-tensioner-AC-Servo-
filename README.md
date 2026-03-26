@@ -97,15 +97,21 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 # Part List
 
-| Name | EA | Site | Note |
-| --- | ------ | --- | ------ |
-| Arduino Uno  | 1 |  https://smartstore.naver.com/misoparts/products/9379052866 |  
-| Arduino Uno Shild | 1 | https://smartstore.naver.com/misoparts/products/10603168121?NaPm=ct%3Dmn7drck7%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3D3a5278cd1bf0568a4d11e4eadbc10e0cae402130 |  
-| A3144 Hall Sensor | 2 | https://smartstore.naver.com/misoparts/products/7329734570?NaPm=ct%3Dmn7dpx2u%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3Da3cfd6375822489dd6bc4980d3f5e7baf3b7b32b |  
-| C1815 TR | 2 | https://smartstore.naver.com/misoparts/products/11061354807?nl-query=c1815&nl-ts-pid=jNRU%2BdqosZrn%2FEksWhw-187553&NaPm=ct%3Dmn7e0o5k%7Cci%3Da570d6e8258bb65872f80c7d444928dd216ad8e6%7Ctr%3Dsls%7Csn%3D1956020%7Chk%3D9312de2891ce2c50cb21488a5161755a40be8f52
-| Magnet 6X3 | 2 |  https://smartstore.naver.com/3hl | 네오디움 자석
-| 4Point Belt | 1 | https://item.taobao.com/item.htm?id=839255746083&mi_id=00004S58StZul3NskVfQ029lyz4kKTe90rmb6Bs6klbWzL0&spm=tbpc.boughtlist.suborder_itempic.d839255746083.d3182e8dDrrSKg  | 안전밸트
-| Die-Casting Bracket for Profile 40X40 | 2 | 안전벨트 걸이  |
+|   Name              | EA | Site | Note |
+| ------------------- | ------ | --- | ------ |
+| Arduino Uno  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/9379052866)|  
+| Arduino Uno Shild | 1 | [Buy](https://smartstore.naver.com/misoparts/products/10603168121?NaPm=ct%3Dmn7drck7%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3D3a5278cd1bf0568a4d11e4eadbc10e0cae402130)|  
+| A3144 Hall Sensor | 2 | [Buy](https://smartstore.naver.com/misoparts/products/7329734570?NaPm=ct%3Dmn7dpx2u%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3Da3cfd6375822489dd6bc4980d3f5e7baf3b7b32b) |  
+| C1815 TR | 2 | [Buy](https://smartstore.naver.com/misoparts/products/11061354807?nl-query=c1815&nl-ts-pid=jNRU%2BdqosZrn%2FEksWhw-187553&NaPm=ct%3Dmn7e0o5k%7Cci%3Da570d6e8258bb65872f80c7d444928dd216ad8e6%7Ctr%3Dsls%7Csn%3D1956020%7Chk%3D9312de2891ce2c50cb21488a5161755a40be8f52)
+| Magnet 6X3 | 2 |  [Buy](https://smartstore.naver.com/3hl) | 네오디움 자석
+| 4Point Belt | 1 | [Buy](https://item.taobao.com/item.htm?id=839255746083&mi_id=00004S58StZul3NskVfQ029lyz4kKTe90rmb6Bs6klbWzL0&spm=tbpc.boughtlist.suborder_itempic.d839255746083.d3182e8dDrrSKg)  | 안전밸트
+| Die-Casting Bracket for Profile 40X40 | 2 |  | 안전벨트 걸이  |
+| M4X10 | 8 |  | Motor ↔ 감속기 체결용 볼트 (여유분있게 구매) |
+| M5X15 | 8 |  | Motor 3D Print 체결용 볼트 (여유분있게 구매) |
+| M6X110 | 2 |  | 안전벨트 체결용 볼트 (여유분있게 구매) |
+| M8X15 | 2 |  | 다이닝캐스팅 고정용 볼트 (여유분있게 구매)  |
+| M6 NUT | 2 |  | 안전벨트 체결용 너트 (여유분있게 구매)  |
+| 40 T Nut | 2 |  | 다이닝캐스팅 고정용 T Nut (여유분있게 구매)  |
 
 
 
