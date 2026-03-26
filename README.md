@@ -98,7 +98,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | Arduino Uno  | 1 |  https://smartstore.naver.com/misoparts/products/9379052866 |  
 | Arduino Uno Shild | 1 |https://smartstore.naver.com/misoparts/products/10603168121?NaPm=ct%3Dmn7drck7%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3D3a5278cd1bf0568a4d11e4eadbc10e0cae402130 |  
 | A3144 Hall Sensor | 2 | https://smartstore.naver.com/misoparts/products/7329734570?NaPm=ct%3Dmn7dpx2u%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3Da3cfd6375822489dd6bc4980d3f5e7baf3b7b32b |  
-| Magnet | 2 |  https://smartstore.naver.com/3hl6X3 | 네오디움 자석
+| Magnet | 2 |  https://smartstore.naver.com/3hl | 네오디움 자석
 | 4Point Belt | 1 | https://item.taobao.com/item.htm?id=839255746083&mi_id=00004S58StZul3NskVfQ029lyz4kKTe90rmb6Bs6klbWzL0&spm=tbpc.boughtlist.suborder_itempic.d839255746083.d3182e8dDrrSKg  | 안전밸트
 | Die-Casting Bracket for Profile 40X40 | 2 | 안벨벌트 걸이  |
 
