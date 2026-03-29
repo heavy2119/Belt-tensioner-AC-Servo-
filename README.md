@@ -101,6 +101,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | ------------------- | ------ | --- | ------ |
 | Arduino Uno  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/9379052866)|  
 | Arduino Uno Shild | 1 | [Buy](https://smartstore.naver.com/misoparts/products/10603168121?NaPm=ct%3Dmn7drck7%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3D3a5278cd1bf0568a4d11e4eadbc10e0cae402130)|  
+| 12 or 24V SMPS | 1 | [Buy](https://smartstore.naver.com/jooyontns/products/498258307?NaPm=ct%3Dmnb3725c%7Cci%3Db115b538f9efb45f20853d6a7b5da50d2f6fc92a%7Ctr%3Dslsl%7Csn%3D397527%7Chk%3De71384e42039656a006bbbafc72d1c25b0a0abc1&nl-au=1c1a04d1ec8048ceb3881a3d8997af97&nl-query=24V+SMPS)|  
 | A3144 Hall Sensor | 2 | [Buy](https://smartstore.naver.com/misoparts/products/7329734570?NaPm=ct%3Dmn7dpx2u%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3Da3cfd6375822489dd6bc4980d3f5e7baf3b7b32b) |  
 | C1815 TR | 2 | [Buy](https://smartstore.naver.com/misoparts/products/11061354807?nl-query=c1815&nl-ts-pid=jNRU%2BdqosZrn%2FEksWhw-187553&NaPm=ct%3Dmn7e0o5k%7Cci%3Da570d6e8258bb65872f80c7d444928dd216ad8e6%7Ctr%3Dsls%7Csn%3D1956020%7Chk%3D9312de2891ce2c50cb21488a5161755a40be8f52)
 | 저항 1k X 8 | 2 | [Buy](https://smartstore.naver.com/misoparts/products/12929684410) | 2K 저항이 필요, 1K 2개 직렬사용
