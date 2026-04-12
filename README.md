@@ -97,7 +97,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 # Part List
 
-|   Name              | EA | Site | Note |
+|   Name              | EA | Site | Note | 모든전장품은 여유분을 꼭 가지고 사세요.
 | ------------------- | ------ | --- | ------ |
 | Arduino Uno  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/9379052866)|  
 | Arduino Uno Shild | 1 | [Buy](https://smartstore.naver.com/misoparts/products/10603168121?NaPm=ct%3Dmn7drck7%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3D3a5278cd1bf0568a4d11e4eadbc10e0cae402130)|  
