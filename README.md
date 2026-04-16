@@ -151,6 +151,8 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 초기 실행시 const bool sensorTestMode = false; 값을 True로 변경하여
 자석을 감지시켜 센서가 정상적으로 동작하는지 확인한다.
 
+정상 동작 확인후 true로 변경한다
+
 이후 심허브에서 캘리브레이션을 실행하면 아래의 동영상과 같이
 초기화가 되어야 한다
 
