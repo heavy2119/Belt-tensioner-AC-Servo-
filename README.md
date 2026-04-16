@@ -151,6 +151,9 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 초기 실행시 const bool sensorTestMode = false; 값을 True로 변경하여
 자석을 감지시켜 센서가 정상적으로 동작하는지 확인한다.
 
+
+[![Watch the video](https://img.youtube.com/vi/3xaYN5WgsHA/0.jpg)](https://youtube.com/shorts/3xaYN5WgsHA)
+
 ---
 
 ## 🇺🇸 Arduino Test Notice
