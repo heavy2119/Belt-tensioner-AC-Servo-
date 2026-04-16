@@ -113,7 +113,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | M4X10 | 8 |  | Motor ↔ 감속기 체결용 볼트 (여유분있게 구매) |
 | M5X15 | 8 |  | Motor 3D Print 체결용 볼트 (여유분있게 구매) |
 | M6X110 | 2 |  | 안전벨트 체결용 볼트 (여유분있게 구매) |
-| M8X15 | 2 |  | 다이닝캐스팅 고정용 볼트 (여유분있게 구매)  |
+| M8X15 | 8 |  | 다이닝캐스팅 고정용 볼트 (여유분있게 구매)  |
 | M6 NUT | 2 |  | 안전벨트 체결용 너트 (여유분있게 구매)  |
 | 40 T Nut | 2 |  | 다이닝캐스팅 고정용 T Nut (여유분있게 구매)  |
 
