@@ -104,7 +104,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | 12 or 24V SMPS | 1 | [Buy](https://smartstore.naver.com/jooyontns/products/498258307?NaPm=ct%3Dmnb3725c%7Cci%3Db115b538f9efb45f20853d6a7b5da50d2f6fc92a%7Ctr%3Dslsl%7Csn%3D397527%7Chk%3De71384e42039656a006bbbafc72d1c25b0a0abc1&nl-au=1c1a04d1ec8048ceb3881a3d8997af97&nl-query=24V+SMPS)|  
 | A3144 Hall Sensor | 2 | [Buy](https://smartstore.naver.com/misoparts/products/7329734570?NaPm=ct%3Dmn7dpx2u%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3Da3cfd6375822489dd6bc4980d3f5e7baf3b7b32b) |  
 | C1815 TR | 4 | [Buy](https://smartstore.naver.com/misoparts/products/11061354807?nl-query=c1815&nl-ts-pid=jNRU%2BdqosZrn%2FEksWhw-187553&NaPm=ct%3Dmn7e0o5k%7Cci%3Da570d6e8258bb65872f80c7d444928dd216ad8e6%7Ctr%3Dsls%7Csn%3D1956020%7Chk%3D9312de2891ce2c50cb21488a5161755a40be8f52)
-| 저항 1k | 16 | [Buy](https://smartstore.naver.com/misoparts/products/12929684410) | 2K 저항이 필요, 1K 2개 직렬사용
+| 저항 1k | 8 | [Buy](https://smartstore.naver.com/misoparts/products/12929684410) | 2K 저항이 필요, 1K 2개 직렬사용
 | 저항 1K ~ 4.7k | 2 | [Buy](https://smartstore.naver.com/misoparts/products/12929684410) | 평균 4.7K옴을 사용하나, 환경에 따라 틀림 / 풀업 저항 사용(노이즈억제)
 | 전선 AWG24 X 8C | 1 | [Buy](https://smartstore.naver.com/ctkmall/products/9391403956?nl-query=8c%20%EC%BC%80%EC%9D%B4%EB%B8%94&nl-ts-pid=jNU6tdqVJ5T11XiMkxl-403131&frm=NVSCPSI&NaPm=ci%3DjNU6tdqVJ5T11XiMkxl-403131%7Cct%3Dmn855jdp%7Ctr%3Dnsls%7Csn%3D216556%7Chk%3D34b4b116794e805bc91e1e1ad1556970d0c50f80)| 10미터 정도?
 | Magnet 6X3 | 2 |  [Buy](https://smartstore.naver.com/3hl) | 네오디움 자석
