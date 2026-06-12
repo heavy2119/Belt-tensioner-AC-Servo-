@@ -48,7 +48,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 ---
 
-# Arduino Wiring
+# Arduino Wiring (Board Type)
 
 <p align="left">
 <img src="image/Arduino Wirling.jpg" width="900">
@@ -59,7 +59,34 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | Pulse       | 9       | 10      | 4         |
 | Direction   | 7       | 8       | 6         |
 | Hall Sensor | 2       | 3       | -         |
-| GND         | GND     | GND     | 41        |
+| 24V+        |         |         | 3,5       |
+
+# Arduino Wiring (PCB Type Type / I/O(3,4,5,6))
+
+<p align="left">
+<img src="image/PCB Type 3,4,5,6 Pin활용.jpg" width="900">
+</p>
+
+| Function    | Motor 1 | Motor 2 | Servo I/O |
+| ----------- | ------- | ------- | --------- |
+| Pulse       | 9       | 10      | 4         |
+| Direction   | 7       | 8       | 6         |
+| Hall Sensor | 2       | 3       | -         |
+| 24V+        |         |         | 3,5       |
+
+# Arduino Wiring (PCB Type Type / I/O(1,4,2,6))
+
+<p align="left">
+<img src="image/PCB Type 1,4,2,6 Pin활용.jpg" width="900">
+</p>
+
+| Function    | Motor 1 | Motor 2 | Servo I/O |
+| ----------- | ------- | ------- | --------- |
+| Pulse       | 9       | 10      | 4         |
+| Direction   | 7       | 8       | 6         |
+| Hall Sensor | 2       | 3       | -         |
+| 24V+        |         |         | 1,2       |
+
 
 ---
 
