@@ -99,7 +99,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 |   Name              | EA | Site | Note | 
 | ------------------- | ------ | --- | ------ |
-| PCB  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/9353232362)| 
+| PCB  | 1 |  [Buy](https://github.com/heavy2119/Belt-tensioner-AC-Servo-/tree/main/PCB)| https://cart.jlcpcb.com/ 주문
 | Arduino Nano  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/9353232362)| 
 | 12 or 24V SMPS | 1 | [Buy](https://smartstore.naver.com/jooyontns/products/498258307?NaPm=ct%3Dmnb3725c%7Cci%3Db115b538f9efb45f20853d6a7b5da50d2f6fc92a%7Ctr%3Dslsl%7Csn%3D397527%7Chk%3De71384e42039656a006bbbafc72d1c25b0a0abc1&nl-au=1c1a04d1ec8048ceb3881a3d8997af97&nl-query=24V+SMPS)|  
 | A3144 Hall Sensor | 2 | [Buy](https://smartstore.naver.com/misoparts/products/7329734570?NaPm=ct%3Dmn7dpx2u%7Cci%3Dcheckout%7Ctr%3Dppc%7Ctrx%3Dnull%7Chk%3Da3cfd6375822489dd6bc4980d3f5e7baf3b7b32b) |  
