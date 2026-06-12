@@ -98,13 +98,13 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 | Pin | Signal | Connection   |
 | --- | ------ | ------------ |
-| 3   | PULS1  | P24          |
-| 4   | PULS2  | 0V (<- Arduino INPUT) |
-| 5   | SIGN1  | P24          |
-| 6   | SIGN2  | 0V (<- Arduino INPUT) |
-| 7   | COM+   | P24          |
-| 29  | SRV-ON | 0V           |
-| 41  | COM-   | 0V           |
+| 3   | PULS1 / OPC1  | 24V+                  |
+| 4   | PULS2         | 0V (<- Arduino INPUT) |
+| 5   | SIGN1 / OPC2  | 24V+                  |
+| 6   | SIGN2         | 0V (<- Arduino INPUT) |
+| 7   | COM+          | 24V+                  |
+| 29  | SRV-ON        | 0V                    |
+| 41  | COM-          | 0V                    |
 
 ---
 
