@@ -157,8 +157,8 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 | Name |  EA  | Note |
 | --- |  ------ |------ |
-| <p align="left"><img src="image/감속기마운트(좌).jpg" width="300"></p>  |  1EA
-| <p align="left"><img src="image/감속기마운트(우).jpg" width="300"></p>   |  1EA
+| <p align="left"><img src="image/감속기마운트(좌).jpg" width="300"></p>  |  1EA  |  ATG PGX42-20 전용
+| <p align="left"><img src="image/감속기마운트(우).jpg" width="300"></p>   |  1EA |  ATG PGX42-20 전용
 | <p align="left"><img src="image/레버(좌).jpg" width="300"></p>   |   1EA
 | <p align="left"><img src="image/레버(우).jpg" width="300"></p>   |  1EA
 | <p align="left"><img src="image/Arm1.jpg" width="300"></p>   |  1EA | By https://www.simhubdash.com/diy-belt-tensionner/
