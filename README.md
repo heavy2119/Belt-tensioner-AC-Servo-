@@ -126,7 +126,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 |   Name              | EA | Site | Note | 
 | ------------------- | ------ | --- | ------ |
-| PCB  | 1 |  [Buy](https://github.com/heavy2119/Belt-tensioner-AC-Servo-/tree/main/PCB)| https://cart.jlcpcb.com/ 주문
+| PCB  | 1 |  [Buy](https://github.com/heavy2119/Belt-tensioner-AC-Servo-/tree/main/PCB)| Gerber_Belt-tensioner / BOM / CPL << 옵션에 PCB어샘블리 선택하고 첨부, BOM 단계에서 없는파츠는 선택할것, KF301은 구성요소배치에서 회전시킬것!
 | Arduino Nano  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/9353232362)| 
 | Arduino Nano 소켓  | 1 |  [Buy](https://smartstore.naver.com/misoparts/products/5685496972)| 
 | PCB 소켓  | 1 |  [Buy](https://ko.aliexpress.com/item/1005010243767312.html?spm=a2g0o.productlist.main.2.1068RCCJRCCJlP&algo_pvid=f67593e5-35dd-4ec8-bdc2-bcfdae44dea6&algo_exp_id=f67593e5-35dd-4ec8-bdc2-bcfdae44dea6-1&pdp_ext_f=%7B%22order%22%3A%225%22%2C%22eval%22%3A%221%22%2C%22fromPage%22%3A%22search%22%7D&pdp_npi=6%40dis%21KRW%214040%214040%21%21%212.58%212.58%21%40212e520f17812412080348024eb037%2112000051657823109%21sea%21KR%211744487115%21X%211%210%21n_tag%3A-29919%3Bd%3A399f8ce5%3Bm03_new_user%3A-29895&curPageLogUid=9mFixbuTZLvJ&utparam-url=scene%3Asearch%7Cquery_from%3A%7Cx_object_id%3A1005010243767312%7C_p_origin_prod%3A)|  KF301-5.0-2P 
