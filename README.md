@@ -90,7 +90,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 # Arduino Wiring (NEW PCB Type Type / I/O(1,4,2,6))
 
 <p align="left">
-<img src="image/NEW PCB" width="900">
+<img src="image/NEW PCB.jpg" width="900">
 </p>
 
 | Function    | Motor 1 | Motor 2 | Servo I/O |
