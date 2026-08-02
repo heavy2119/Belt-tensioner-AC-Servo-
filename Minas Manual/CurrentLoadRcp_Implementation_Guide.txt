@@ -1,0 +1,588 @@
+============================================================
+현재 투입 RCP 표시 / PLC 진행 기능 구현 가이드
+============================================================
+
+목적
+----
+1. 착공된 LOT의 실제 GLS RCP를 Form1에 표시한다.
+2. Slot RCP가 비어 있으면 Main RCP를 해당 방의 착공 GLS에 실제 적용한다.
+3. PLC GLS 투입 완료 Rising Edge 1회 = 해당 GLS 정보 1건 표시.
+4. 한 방의 실제 Glass를 모두 소진하면 SavedOrder 기준 다음 착공 방으로 이어간다.
+5. 방은 최대 4개, 방번호 순이 아니라 착공 순서(SavedOrder)로 진행한다.
+6. 나중에 이 표시값을 PLC RCP 제어에 사용한다.
+7. 기존 S7F83 / RcpConfirm / S6F81 / LotEnd 로직은 최대한 건드리지 않는다.
+
+
+핵심 규칙 (확정)
+---------------
+PLC 신호 1회 = 그때 해당하는 실제 GLS 정보 1건 표시
+
+- 착공만 하고 PLC 전이면 화면은 "-"
+- 신호보다 앞서 Slot을 미리 보여주지 않음
+- 없는 Slot을 1~11로 채우며 돌리지 않음
+- Slot 진행 기준은 고정 Slot번호(1→11)가 아니라
+  S7F83 GlassList에 들어 있는 실제 Glass 순서
+  (Parse_S7F83는 GlsID가 있는 Glass만 저장)
+
+
+동작 Flow
+---------
+착공 시작
+↓
+추적 ON / 해당 방 빈 SlotRcp → MainRcp 적용
+↓
+Form1 표시: "-"   ← PLC 전에는 표시하지 않음
+↓
+PLC GLS 투입 완료 Rising Edge
+↓
+Form1 표시: 현재 방의 실제 Glass 1번째 RCP
+↓
+PLC Rising Edge
+↓
+Form1 표시: 실제 Glass 2번째 RCP
+↓
+...
+↓
+그 방의 실제 Glass 개수만큼 신호 소진
+↓
+SavedOrder 다음 착공 방으로 내부 이동
+↓
+다음 PLC Rising Edge
+↓
+다음 방의 실제 Glass 1번째 RCP 즉시 표시
+↓
+더 이상 착공 방/Glass 없으면 표시 종료 ("-")
+
+
+예시 (정상)
+-----------
+방A (먼저 착공): Glass 3장 (예: Slot2, Slot5, Slot7)
+방B (다음 착공): Glass 2장 (예: Slot1, Slot4)
+
+1. 착공 완료 → 화면 "-"
+2. PLC #1 → 방A / Slot2 / RCP
+3. PLC #2 → 방A / Slot5 / RCP
+4. PLC #3 → 방A / Slot7 / RCP  (방A 소진 → 내부만 방B로 이동)
+5. PLC #4 → 방B / Slot1 / RCP
+6. PLC #5 → 방B / Slot4 / RCP
+7. 이후 PLC → "-" 또는 무시
+
+신호 횟수 = 실제 Glass 수와 일치해야 한다.
+
+
+잘못된 동작 (금지)
+------------------
+Glass 3장인데 착공 직후 1번째를 미리 표시하면:
+
+1. 착공 직후 → 이미 1번째 표시
+2. PLC #1 → 2번째
+3. PLC #2 → 3번째
+4. PLC #3 → 정보 없음
+
+PLC는 3번 줬는데 마지막이 비게 된다.
+→ 착공 직후 / 방 이동 직후 모두 "미리 표시" 금지.
+
+
+수정/추가 파일 요약
+------------------
+1. Form1 디자이너
+   - Label 추가: lblCurrentLoadRcp
+   - (테스트용) Button 추가: btnTestGlsLoadComplete
+
+2. PlcLogic.vb
+   - 상태 변수 추가
+   - Start / Refresh / Advance / PLC Rising Edge 함수 추가
+   - Main RCP 보정 함수 추가
+   - GlassList 인덱스 기준으로 진행 (Slot 1~11 하드코딩 제거)
+
+3. ButtonEvents.vb
+   - Button1_Click / Button2_Click에 StartLoadRcpTracking() 연결
+   - 테스트 버튼 핸들러 추가
+
+건드리지 말 것
+--------------
+- HsmsCommunication.vb 의 S7F83 파싱 본체
+- RcpConfirmForm
+- Send_S6F81 위치
+- btnLotEnd_Click / S6F77 조립 로직
+
+
+============================================================
+[1] Form1 디자이너에 추가할 컨트롤
+============================================================
+
+1) Label
+Name: lblCurrentLoadRcp
+Text : 현재 투입 RCP: -
+AutoSize: False 권장
+Width: 500 이상
+
+2) Button (테스트용, 권장)
+Name: btnTestGlsLoadComplete
+Text : GLS 투입완료 테스트
+
+
+============================================================
+[2] PlcLogic.vb 상단에 추가할 변수
+============================================================
+
+파일: PlcLogic.vb
+위치: previousLDCstOffSignal 변수 아래
+
+추가 코드:
+------------------------------------------------------------
+    ' ============================================================
+    ' [CURRENT_LOAD_RCP_TRACKER_START]
+    ' 실제 착공 Glass 순서에 따라 현재 RCP를 Form1에 표시
+    ' - PLC Rising Edge 1회 = 해당 GLS 정보 1건 표시
+    ' - 착공/방 이동 직후에는 표시하지 않음 (PLC 신호 후 표시)
+    ' - SlotRcp가 비어 있으면 MainRcp를 Glass에 실제 적용
+    ' - 방 종료 시 SavedOrder 기준 다음 착공 방으로 이동
+    ' - 방 최대 4개, 착공 순서(SavedOrder)로 진행
+    ' 실전 이식 시: PLC Bit 읽기 루프에서 ProcessGlsLoadCompleteSignal 호출
+    ' ============================================================
+    Private previousGlsLoadCompleteSignal As Boolean = False
+
+    Private currentLoadRoomNo As Integer = 0
+    ' GlassList에서의 다음 표시 대상 인덱스 (0부터 시작)
+    Private currentLoadGlassIndex As Integer = 0
+    Private isLoadRcpTracking As Boolean = False
+    ' ============================================================
+    ' [CURRENT_LOAD_RCP_TRACKER_VARS_END]
+    ' ============================================================
+------------------------------------------------------------
+
+
+============================================================
+[3] PlcLogic.vb End Class 바로 위에 추가할 전체 함수
+============================================================
+
+파일: PlcLogic.vb
+위치: 파일 맨 아래 End Class 바로 위
+
+추가 코드:
+------------------------------------------------------------
+    ' ============================================================
+    ' [CURRENT_LOAD_RCP_TRACKER_FUNCS_START]
+    ' ============================================================
+
+    ''' <summary>
+    ''' 착공 시작 시 호출.
+    ''' SavedOrder가 가장 빠른 착공 방부터 추적을 시작한다.
+    ''' 시작 전에 해당 방의 빈 SlotRcp에 MainRcp를 적용한다.
+    ''' 화면은 아직 갱신하지 않는다. (PLC 신호 후에 표시)
+    ''' </summary>
+    Private Sub StartLoadRcpTracking()
+        SyncLock S7F83RoomLock
+            ' 착공된 방만 대상 (AssignedToOutputPort)
+            ' 없으면 Waiting 포함 비어있지 않은 방 중 SavedOrder 최소값으로 fallback 가능
+            Dim firstRoom = S7F83Rooms.
+                Where(Function(r) r.State = S7F83RoomState.AssignedToOutputPort).
+                OrderBy(Function(r) r.SavedOrder).
+                FirstOrDefault()
+
+            If firstRoom Is Nothing Then
+                firstRoom = S7F83Rooms.
+                    Where(Function(r) r.State <> S7F83RoomState.Empty).
+                    OrderBy(Function(r) r.SavedOrder).
+                    FirstOrDefault()
+            End If
+
+            If firstRoom Is Nothing Then
+                isLoadRcpTracking = False
+                currentLoadRoomNo = 0
+                currentLoadGlassIndex = 0
+            Else
+                ApplyMainRcpToEmptySlotRcps(firstRoom)
+
+                currentLoadRoomNo = firstRoom.RoomNo
+                currentLoadGlassIndex = 0
+                isLoadRcpTracking = True
+            End If
+        End SyncLock
+
+        ' ★ 착공 직후 미리 표시하지 않음
+        UpdateCurrentLoadRcpDisplay("-", 0, 0, "")
+
+        If isLoadRcpTracking Then
+            logger.WriteLog($"[SYSTEM] 현재 투입 RCP 추적 시작 - 방{currentLoadRoomNo} (PLC 신호 대기)")
+        Else
+            logger.WriteLog("[SYSTEM] 현재 투입 RCP 추적 시작 실패 - 착공된 방이 없습니다.")
+        End If
+    End Sub
+
+
+    ''' <summary>
+    ''' 해당 방의 GlassList를 돌면서 SlotRcp가 비어 있으면 MainRcp를 넣는다.
+    ''' GlassInfoData는 Structure이므로 수정 후 리스트에 다시 대입해야 한다.
+    ''' </summary>
+    Private Sub ApplyMainRcpToEmptySlotRcps(room As S7F83Room)
+        If room Is Nothing Then Exit Sub
+
+        Dim mainRcp As String = room.LotData.RcpID
+        If String.IsNullOrWhiteSpace(mainRcp) Then Exit Sub
+
+        For i As Integer = 0 To room.GlassList.Count - 1
+            Dim glass As GlassInfoData = room.GlassList(i)
+
+            If String.IsNullOrWhiteSpace(glass.SlotRcp) Then
+                glass.SlotRcp = mainRcp
+                room.GlassList(i) = glass
+            End If
+        Next
+
+        ' 모니터 창이 열려 있으면 변경된 RCP를 바로 반영
+        UpdateRcpMonitorForm()
+    End Sub
+
+
+    ''' <summary>
+    ''' 현재 방 / GlassList(index)의 RCP를 Form1 Label에 표시한다.
+    ''' SlotRcp가 비어 있으면 표시용으로 MainRcp를 사용한다.
+    ''' </summary>
+    Private Sub RefreshCurrentLoadRcpDisplay()
+        If Not isLoadRcpTracking OrElse currentLoadRoomNo <= 0 Then
+            UpdateCurrentLoadRcpDisplay("-", 0, 0, "")
+            Exit Sub
+        End If
+
+        Dim roomNo As Integer = currentLoadRoomNo
+        Dim glassIndex As Integer = currentLoadGlassIndex
+        Dim lotId As String = ""
+        Dim slotNo As Integer = 0
+        Dim rcp As String = ""
+
+        SyncLock S7F83RoomLock
+            Dim room = S7F83Rooms.FirstOrDefault(Function(r) r.RoomNo = roomNo)
+
+            If room Is Nothing OrElse room.State = S7F83RoomState.Empty Then
+                UpdateCurrentLoadRcpDisplay("-", 0, 0, "")
+                Exit Sub
+            End If
+
+            If room.GlassList Is Nothing OrElse
+               glassIndex < 0 OrElse
+               glassIndex >= room.GlassList.Count Then
+                UpdateCurrentLoadRcpDisplay("-", 0, 0, "")
+                Exit Sub
+            End If
+
+            Dim glass As GlassInfoData = room.GlassList(glassIndex)
+            lotId = room.LotData.LotID
+
+            Dim parsedSlot As Integer
+            If Integer.TryParse(glass.SlotID, parsedSlot) Then
+                slotNo = parsedSlot
+            End If
+
+            rcp = If(glass.SlotRcp, "")
+            If String.IsNullOrWhiteSpace(rcp) Then
+                rcp = room.LotData.RcpID
+            End If
+        End SyncLock
+
+        UpdateCurrentLoadRcpDisplay(lotId, roomNo, slotNo, rcp)
+    End Sub
+
+
+    ''' <summary>
+    ''' Form1 Label 갱신. UI Thread가 아니면 Invoke한다.
+    ''' </summary>
+    Private Sub UpdateCurrentLoadRcpDisplay(lotId As String, roomNo As Integer, slotNo As Integer, rcp As String)
+        If Me.InvokeRequired Then
+            Me.Invoke(New Action(Of String, Integer, Integer, String)(AddressOf UpdateCurrentLoadRcpDisplay), lotId, roomNo, slotNo, rcp)
+            Exit Sub
+        End If
+
+        If roomNo <= 0 Then
+            lblCurrentLoadRcp.Text = "현재 투입 RCP: -"
+        Else
+            lblCurrentLoadRcp.Text = $"현재 투입 RCP: LOT={lotId} / 방{roomNo} / Slot{slotNo} / RCP={rcp}"
+        End If
+    End Sub
+
+
+    ''' <summary>
+    ''' PLC GLS 투입 완료 Bit 처리.
+    ''' False → True Rising Edge에서만 1회 진행한다.
+    ''' </summary>
+    Private Sub ProcessGlsLoadCompleteSignal(currentSignal As Boolean)
+        If previousGlsLoadCompleteSignal = False AndAlso currentSignal = True Then
+            HandleGlsLoadCompleteDetected("PLC")
+        End If
+
+        previousGlsLoadCompleteSignal = currentSignal
+    End Sub
+
+
+    ''' <summary>
+    ''' GLS 투입 완료 1회 처리.
+    ''' PLC 신호 1회 = 현재 차례의 실제 GLS 정보를 즉시 표시한다.
+    ''' 표시 후 인덱스를 증가시키고, 방의 Glass를 모두 소진하면
+    ''' SavedOrder 다음 착공 방으로 이동한다. (이동 직후 미리 표시하지 않음)
+    ''' </summary>
+    Private Sub HandleGlsLoadCompleteDetected(sourceText As String)
+        If Not isLoadRcpTracking Then
+            If logger IsNot Nothing Then
+                logger.WriteLog($"[{sourceText}] GLS 투입 완료 신호 - 추적 중이 아니므로 무시")
+            End If
+            Exit Sub
+        End If
+
+        Dim displayed As Boolean = False
+
+        SyncLock S7F83RoomLock
+            Dim room = S7F83Rooms.FirstOrDefault(Function(r) r.RoomNo = currentLoadRoomNo)
+
+            ' 현재 방에 표시할 Glass가 없으면 다음 방으로 이동 시도
+            While room Is Nothing OrElse
+                  room.State = S7F83RoomState.Empty OrElse
+                  room.GlassList Is Nothing OrElse
+                  currentLoadGlassIndex >= room.GlassList.Count
+
+                If Not MoveToNextLoadRoom_NoLock() Then
+                    isLoadRcpTracking = False
+                    currentLoadRoomNo = 0
+                    currentLoadGlassIndex = 0
+                    Exit While
+                End If
+
+                room = S7F83Rooms.FirstOrDefault(Function(r) r.RoomNo = currentLoadRoomNo)
+                If room IsNot Nothing AndAlso room.State <> S7F83RoomState.Empty Then
+                    ApplyMainRcpToEmptySlotRcps(room)
+                End If
+            End While
+
+            If isLoadRcpTracking AndAlso room IsNot Nothing AndAlso
+               room.GlassList IsNot Nothing AndAlso
+               currentLoadGlassIndex >= 0 AndAlso
+               currentLoadGlassIndex < room.GlassList.Count Then
+
+                ' ★ 지금 차례 Glass를 표시
+                displayed = True
+            End If
+        End SyncLock
+
+        If displayed Then
+            RefreshCurrentLoadRcpDisplay()
+
+            If logger IsNot Nothing Then
+                logger.WriteLog($"[{sourceText}] 투입 GLS 표시: 방{currentLoadRoomNo} / GlassIndex{currentLoadGlassIndex}")
+            End If
+
+            ' 표시 완료 → 다음 Glass로 인덱스 이동
+            currentLoadGlassIndex += 1
+
+            ' 방 소진 시 다음 착공 방으로만 이동 (표시는 다음 PLC에서)
+            SyncLock S7F83RoomLock
+                Dim room = S7F83Rooms.FirstOrDefault(Function(r) r.RoomNo = currentLoadRoomNo)
+                If room Is Nothing OrElse
+                   room.State = S7F83RoomState.Empty OrElse
+                   room.GlassList Is Nothing OrElse
+                   currentLoadGlassIndex >= room.GlassList.Count Then
+
+                    If Not MoveToNextLoadRoom_NoLock() Then
+                        isLoadRcpTracking = False
+                        currentLoadRoomNo = 0
+                        currentLoadGlassIndex = 0
+                    Else
+                        Dim nextRoom = S7F83Rooms.FirstOrDefault(Function(r) r.RoomNo = currentLoadRoomNo)
+                        If nextRoom IsNot Nothing AndAlso nextRoom.State <> S7F83RoomState.Empty Then
+                            ApplyMainRcpToEmptySlotRcps(nextRoom)
+                        End If
+                    End If
+                End If
+            End SyncLock
+        Else
+            UpdateCurrentLoadRcpDisplay("-", 0, 0, "")
+
+            If logger IsNot Nothing Then
+                logger.WriteLog($"[{sourceText}] 모든 착공 방 투입 완료")
+            End If
+        End If
+    End Sub
+
+
+    ''' <summary>
+    ''' 현재 방보다 SavedOrder가 큰 다음 착공 방으로 이동한다.
+    ''' 호출 전에 이미 S7F83RoomLock을 잡은 상태에서 사용한다.
+    ''' 성공 시 True, 없으면 False.
+    ''' 이동 직후 화면은 갱신하지 않는다.
+    ''' </summary>
+    Private Function MoveToNextLoadRoom_NoLock() As Boolean
+        Dim currentOrder As Integer = GetRoomSavedOrder(currentLoadRoomNo)
+
+        Dim nextRoom = S7F83Rooms.
+            Where(Function(r) r.State = S7F83RoomState.AssignedToOutputPort AndAlso r.SavedOrder > currentOrder).
+            OrderBy(Function(r) r.SavedOrder).
+            FirstOrDefault()
+
+        If nextRoom Is Nothing Then
+            nextRoom = S7F83Rooms.
+                Where(Function(r) r.State <> S7F83RoomState.Empty AndAlso r.SavedOrder > currentOrder).
+                OrderBy(Function(r) r.SavedOrder).
+                FirstOrDefault()
+        End If
+
+        If nextRoom Is Nothing Then
+            Return False
+        End If
+
+        currentLoadRoomNo = nextRoom.RoomNo
+        currentLoadGlassIndex = 0
+        Return True
+    End Function
+
+
+    Private Function GetRoomSavedOrder(roomNo As Integer) As Integer
+        Dim room = S7F83Rooms.FirstOrDefault(Function(r) r.RoomNo = roomNo)
+        If room Is Nothing Then Return 0
+        Return room.SavedOrder
+    End Function
+
+    ' ============================================================
+    ' [CURRENT_LOAD_RCP_TRACKER_FUNCS_END]
+    ' ============================================================
+------------------------------------------------------------
+
+
+============================================================
+[4] ButtonEvents.vb 수정
+============================================================
+
+파일: ButtonEvents.vb
+
+----------------------------------------------------------
+4-1. Button1_Click 수정
+----------------------------------------------------------
+기존:
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        RegisterOutputPortStart(1)
+        TestCompletedOutputPortNo = 1
+    End Sub
+
+변경:
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        RegisterOutputPortStart(1)
+        TestCompletedOutputPortNo = 1
+
+        ' ============================================================
+        ' [CURRENT_LOAD_RCP_TRACKER]
+        ' 출력포트1 착공 시작 후 현재 투입 RCP 추적 시작
+        ' 화면 표시는 하지 않음. PLC 신호 대기.
+        ' 실전에서는 PLC 착공 시작 신호 처리부로 이동
+        ' ============================================================
+        StartLoadRcpTracking()
+    End Sub
+
+
+----------------------------------------------------------
+4-2. Button2_Click 수정
+----------------------------------------------------------
+기존:
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        RegisterOutputPortStart(2)
+        TestCompletedOutputPortNo = 2
+    End Sub
+
+변경:
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        RegisterOutputPortStart(2)
+        TestCompletedOutputPortNo = 2
+
+        ' ============================================================
+        ' [CURRENT_LOAD_RCP_TRACKER]
+        ' 출력포트2 착공 시작 후 현재 투입 RCP 추적 시작
+        ' 화면 표시는 하지 않음. PLC 신호 대기.
+        ' 실전에서는 PLC 착공 시작 신호 처리부로 이동
+        ' ============================================================
+        StartLoadRcpTracking()
+    End Sub
+
+
+----------------------------------------------------------
+4-3. 테스트 버튼 핸들러 추가
+----------------------------------------------------------
+ButtonEvents.vb 맨 아래 End Class 위에 추가:
+
+    ''' <summary>
+    ''' [테스트] PLC GLS 투입 완료 Rising Edge 1회를 수동 발생시킨다.
+    ''' 클릭 1회 = 해당 GLS 정보 1건 표시.
+    ''' </summary>
+    Private Sub btnTestGlsLoadComplete_Click(sender As Object, e As EventArgs) Handles btnTestGlsLoadComplete.Click
+        ProcessGlsLoadCompleteSignal(False)
+        ProcessGlsLoadCompleteSignal(True)
+        ProcessGlsLoadCompleteSignal(False)
+    End Sub
+
+
+============================================================
+[5] 나중에 PLC 연결할 위치
+============================================================
+
+실전에서 PLC Bit를 주기적으로 읽는 곳이 생기면 아래만 호출:
+
+    ProcessGlsLoadCompleteSignal(plcGlsLoadCompleteBit)
+
+예:
+    ' plcGlsLoadCompleteBit = PLC에서 읽은 True/False
+    ProcessGlsLoadCompleteSignal(plcGlsLoadCompleteBit)
+
+기존 ProcessLDCstOffSignal과 같은 Rising Edge 방식이다.
+
+
+============================================================
+[6] 테스트 순서
+============================================================
+
+1. S7F83을 받아 방1, 방2에 LOT 저장
+   (각 방 Glass 개수는 실제 있는 것만, 예: 3장 / 2장)
+2. Button1(착공) 클릭
+   → 화면은 여전히 "현재 투입 RCP: -"
+   → SlotRcp 비어 있던 Glass는 MainRcp로 채워짐 (RcpMonitorForm으로 확인 가능)
+3. "GLS 투입완료 테스트" 버튼 1회 클릭
+   → 방A의 실제 Glass 1번째 표시
+4. 계속 클릭
+   → 방A Glass 2번째, 3번째...
+5. 방A Glass 수만큼 클릭한 다음 클릭
+   → 방B의 실제 Glass 1번째 즉시 표시
+6. 방B도 Glass 수만큼 소진되면 "-"
+7. 신호 횟수 = 전체 실제 Glass 수와 일치하는지 확인
+
+
+============================================================
+[7] 검색용 코멘트 키워드
+============================================================
+
+나중에 실전 프로그램에서 찾을 때:
+
+    CURRENT_LOAD_RCP_TRACKER_START
+    CURRENT_LOAD_RCP_TRACKER_FUNCS_START
+    CURRENT_LOAD_RCP_TRACKER
+
+
+============================================================
+[8] 주의사항
+============================================================
+
+1. 다음 방 이동 기준은 방번호가 아니라 SavedOrder이다. (최대 4방)
+2. GlassInfoData는 Structure이므로
+   glass.SlotRcp = mainRcp
+   room.GlassList(i) = glass
+   형태로 다시 넣어야 한다.
+3. Parse_S7F83는 GlsID가 있는 Glass만 GlassList에 넣는다.
+   진행/표시는 이 GlassList 인덱스 순서를 따른다.
+   고정 Slot 1→11 루프를 사용하지 않는다.
+4. 착공 직후 / 방 이동 직후에는 화면을 미리 갱신하지 않는다.
+5. PLC 신호 1회 = 해당 GLS 정보 1건 표시.
+6. 방 소진 후 다음 방으로 내부 이동만 하고,
+   그다음 PLC 신호가 오면 그 방의 첫 GLS를 바로 표시한다.
+
+
+============================================================
+끝
+============================================================
