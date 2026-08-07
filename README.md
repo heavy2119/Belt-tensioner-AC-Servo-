@@ -123,26 +123,26 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 
 # Minas A4 Servo Drive Parameters
 
-| Parameter | Description                 | Value |
-| --------- | --------------------------- | ----- |
-| Pr02      | Control Mode                | 0     |
-| Pr04      | Disable Over-travel Input   | 1     |
-| Pr40      | Command Pulse Input         | 0     |
-| Pr42      | Pulse Input Mode            | 3     |
-| Pr43      | Pulse Input Inhibition      | 1     |
-| Pr4E      | Counter Clear Mode          | 2     |
-| Pr4B      | Electronic Gear Denominator | 150   |
+| Parameter | Description                 | Value | Note |
+| --------- | --------------------------- | ----- | ----- |
+| Pr02      | Control Mode                | 0     |    |
+| Pr04      | Disable Over-travel Input   | 1     |    |
+| Pr40      | Command Pulse Input         | 0     |    |
+| Pr42      | Pulse Input Mode            | 3     |    |
+| Pr43      | Pulse Input Inhibition      | 1     |    |
+| Pr4E      | Counter Clear Mode          | 2     |    |
+| Pr4B      | Electronic Gear Denominator | 150   | 감속비 20:1   |
 
 
 # Minas A5 Servo Drive Parameters
 
-| Parameter | Description                 | Value |
-| --------- | --------------------------- | ----- |
-| Pr01      | Control Mode                | 0     |
-| Pr05      | Disable Over-travel Input   | 0     |
-| Pr06      | Command Pulse Input         | 1     |
-| Pr07      | Pulse Input Mode            | 3     |
-| Pr08      | Command pulse counts per one motor revolution      | 600     |
+| Parameter | Description                 | Value | Note |
+| --------- | --------------------------- | ----- |----- |
+| Pr01      | Control Mode                | 0     |     |
+| Pr05      | Disable Over-travel Input   | 0     |     |
+| Pr06      | Command Pulse Input         | 1     |     |
+| Pr07      | Pulse Input Mode            | 3     |     |
+| Pr08      | Command pulse counts per one motor revolution      | 600     |  감속비 5:1   |
 
 
 ---
