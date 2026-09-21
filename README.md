@@ -41,7 +41,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 </p>
 
 | Component    | Model        | Note        |
-| ------------ | ------------ | |
+| ------------ | ------------ | ------------|
 | Servo Driver | MADDT1205    | |
 | Servo Motor  | MSMD012S1A   | |
 | Reducer      | ATG PGX42-20 | |
