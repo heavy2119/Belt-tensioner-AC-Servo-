@@ -45,7 +45,7 @@ The goal was to build a **quiet and responsive belt tensioner system** for SimHu
 | Servo Driver | MADDT1205    | |
 | Servo Motor  | MSMD012S1A   | |
 | Reducer      | ATG PGX42-20 | |
-| Reducer      | PLF042-L2-8-30-46-M4| 타오바오에서 구매 가능 |
+| Reducer      | PLF042-L2-8-30-46-M4| 타오바오에서 구매 가능 [Buy](https://item.taobao.com/item.htm?from=cart&id=677023837529&mi_id=0000b59pOEr-cHJP-wrLLUhM1iRnnwuKNjsFSy2IZElw-lM&skuId=4865418865471&spm=a1z0d.6639537%2F202410.item.d677023837529.149a7484DMedYt&upStreamPrice=26000)|
 
 
 ---
